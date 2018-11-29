@@ -2,6 +2,6 @@
 /public/components
 .idea/
 .c9/
-/data/storage.json
+/data/
 /app/config/config.json
 .DS_Store

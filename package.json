@@ -4,6 +4,7 @@
   "description": "A web-based secret santa application to collect participants, shuffle and email each user with their chosen secret santa",
   "main": "",
   "scripts": {
+    "test": "mocha app/**/*.test.js",
     "lint": "eslint index.js app/**/*.js"
   },
   "author": {
@@ -29,7 +30,10 @@
     "prompt": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^5.5.0",
-    "eslint-config-google": "^0.10.0"
+    "eslint-config-google": "^0.10.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.1.1"
   }
 }

@@ -1,3 +1,15 @@
+const app = require('./app/lib/app');
+
+console.log(app.getConfig());
+
+if (app.configExists()) {
+  require('./app/lib/router');
+} else {
+  console.warn('No config detected...');
+  require('./app/lib/installer');
+}
+
+/*
 const express = require('express');
 const app = express();
 const engine = require('ejs-locals');
@@ -82,3 +94,4 @@ if (!secretSanta.configExists()) {
     console.log('Listening on port %d', server.address().port);
   });
 }
+*/
