@@ -118,22 +118,6 @@ SecretSanta.prototype.writeConfig = function (mainConfig, emailConfig) {
   console.log('Config file created.');
 };
 
-SecretSanta.prototype.ensureLoggedIn = function (req, res, next) {
-  if (req.session.user && req.url === '/login') {
-    res.redirect('/admin');
-  } else if (!req.session.user && req.url !== '/login') {
-    req.session.error = 'Access denied!';
-    res.status(401);
-    res.render('login');
-  } else {
-    next();
-  }
-};
-
-SecretSanta.prototype.initSession = function (req) {
-  req.session.user = true;
-};
-
 SecretSanta.prototype.getSubscribers = function () {
   const jsonStore = require('json-store');
   const db = jsonStore(this.database);

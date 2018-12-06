@@ -4,16 +4,32 @@ const config = app.getConfig();
 
 router.get('/', function (req, res) {
   res.render('index', {
-    title: secretSanta.fetchConfig()['title'],
-    deadline: secretSanta.fetchConfig()['deadline'],
-    spendLimit: secretSanta.fetchConfig()['spend-limit']
+    title: config.title,
+    deadline: config.deadline,
+    spendLimit: config['spend-limit']
   });
 });
 
 router.post('/save', function (req, res) {
-  secretSanta.addSubscriber(req);
+  app.addSubscriber(req);
 
   res.render('registered');
+});
+
+router.get('/login', app.ensureLoggedIn, function (req, res) {
+  res.render('login');
+});
+
+router.post('/login', secretSanta.ensureLoggedIn, function (req, res, next) {
+  if (req.body.password === config['admin-password']) {
+    app.initSession(req, res);
+    res.redirect('/admin');
+    next();
+  } else {
+    res.render('login', {
+      error: 'Incorrect password'
+    });
+  }
 });
 
 module.exports = router;
