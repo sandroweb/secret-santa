@@ -1,6 +1,5 @@
 const router = new express.Router();
 const app = require('../lib/app');
-const config = app.getConfig();
 
 router.use(app.ensureLoggedIn);
 

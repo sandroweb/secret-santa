@@ -1,4 +1,4 @@
-function SecretSanta() {
+function SecretSanta () {
   this.defaultConfigFile = __dirname + '/../config/default.json';
   this.configFile = __dirname + '/../config/config.json';
   this.databaseLocation = __dirname + '/../../data';
@@ -277,7 +277,6 @@ SecretSanta.prototype.sendEmail = function (to, subject, messageBody) {
       subject: subject,
       text: messageBody
     });
-
   } else {
     console.error('Unknown email server type:');
   }

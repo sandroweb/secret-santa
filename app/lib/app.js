@@ -2,15 +2,15 @@ const fs = require('fs');
 const CONSTS = require('./consts');
 
 module.exports = class App {
-  static configExists() {
+  static configExists () {
     return fs.existsSync(CONSTS.CONF_LOCATION);
   }
 
-  static getConfig() {
+  static getConfig () {
     return require('../../' + CONSTS.CONF_LOCATION);
   }
 
-  static ensureLoggedIn(req, res, next) {
+  static ensureLoggedIn (req, res, next) {
     if (req.session.user && req.url === '/login') {
       res.redirect('/admin');
     } else if (!req.session.user && req.url !== '/login') {
@@ -22,12 +22,11 @@ module.exports = class App {
     }
   }
 
-  static initSession(req) {
+  static initSession (req) {
     req.session.user = true;
   }
 
-  static addSubscriber() {
+  static addSubscriber () {
     // todo
   }
-
 };

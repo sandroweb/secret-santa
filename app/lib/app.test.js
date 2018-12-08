@@ -1,6 +1,5 @@
 const fs = require('fs');
 const expect = require('chai').expect;
-const sinon = require('sinon');
 const app = require('./app');
 
 describe('App', function () {
@@ -54,7 +53,7 @@ describe('App', function () {
           expect(code).to.equal(401);
         },
         render: (page) => {
-          expect(page).to.equal('login')
+          expect(page).to.equal('login');
         }
       };
 
@@ -80,7 +79,7 @@ describe('App', function () {
   describe('initSession()', () => {
     it('should set the session var', () => {
       let req = {
-        session: {},
+        session: {}
       };
 
       app.initSession(req);
@@ -88,5 +87,4 @@ describe('App', function () {
       expect(req.session.user).to.equal(true);
     });
   });
-
 });
