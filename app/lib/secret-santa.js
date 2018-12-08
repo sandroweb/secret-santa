@@ -87,37 +87,6 @@ SecretSanta.prototype.runInstall = function () {
   }.bind(this));
 };
 
-SecretSanta.prototype.writeConfig = function (mainConfig, emailConfig) {
-  const config = require(this.defaultConfigFile);
-  const fs = require('fs');
-  const configFields = ['title', 'signup-password', 'admin-password', 'deadline', 'spend-limit'];
-  let configFieldName;
-
-  for (const key in configFields) {
-    if (configFields.hasOwnProperty(key)) {
-      configFieldName = configFields[key];
-      config[configFieldName] = mainConfig[configFieldName];
-    }
-  }
-
-  if (mainConfig['signup-password'] === '') {
-    config['signup-password'] = false;
-  }
-
-  if (mainConfig['email-type'] === 'smtp') {
-    config['email-server'].type = 'smtp';
-  } else {
-    config['email-server'].type = 'mailgun';
-    config['email-server']['api-key'] = emailConfig['api-key'];
-  }
-
-  config['cookie-secret'] = this.generateRandomPassword();
-  config['session-secret'] = this.generateRandomPassword();
-
-  fs.writeFileSync(this.configFile, JSON.stringify(config));
-  console.log('Config file created.');
-};
-
 SecretSanta.prototype.getSubscribers = function () {
   const jsonStore = require('json-store');
   const db = jsonStore(this.database);
