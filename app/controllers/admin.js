@@ -1,24 +1,27 @@
-const router = new express.Router();
+const express = require('express');
 const app = require('../lib/app');
+
+const router = new express.Router();
 
 router.use(app.ensureLoggedIn);
 
-router.get('/admin', (req, res) => {
+router.get('/', (req, res) => {
+  console.log(app.getStorage());
   res.render('admin', {
-    subscribers: secretSanta.getSubscribers(),
-    alreadySent: secretSanta.haveEmailsAlreadySent()
+    subscribers: app.getStorage(),
+    alreadySent: app.haveEmailsAlreadySent()
   });
 });
 
-router.post('/admin/create-send', (req, res) => {
-  const list = secretSanta.createAndSendEmails();
+router.post('/create-send', (req, res) => {
+  const list = app.createAndSendEmails();
   res.render('admin-review-send', {
     recipients: list
   });
 });
 
-router.post('/admin/re-send', (req, res) => {
-  const list = secretSanta.resendRecipientList();
+router.post('/re-send', (req, res) => {
+  const list = app.resendRecipientList();
   res.render('admin-review-send', {
     recipients: list
   });

@@ -1,5 +1,7 @@
-const router = new express.Router();
+const express = require('express');
 const app = require('../lib/app');
+
+const router = new express.Router();
 const config = app.getConfig();
 
 router.get('/', function (req, res) {
@@ -20,7 +22,7 @@ router.get('/login', app.ensureLoggedIn, function (req, res) {
   res.render('login');
 });
 
-router.post('/login', secretSanta.ensureLoggedIn, function (req, res, next) {
+router.post('/login', app.ensureLoggedIn, function (req, res, next) {
   if (req.body.password === config['admin-password']) {
     app.initSession(req, res);
     res.redirect('/admin');

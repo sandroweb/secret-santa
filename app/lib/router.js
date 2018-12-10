@@ -1,10 +1,11 @@
 const express = require('express');
-const app = express();
 const engine = require('ejs-locals');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const secretSanta = require('../lib/app');
+
+const app = express();
 
 const indexController = require('../controllers/index');
 const adminController = require('../controllers/admin');
@@ -12,9 +13,9 @@ const config = secretSanta.getConfig();
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/app/views');
+app.set('views', './app/views');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser(config['cookie-secret']));
 

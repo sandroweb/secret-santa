@@ -1,13 +1,27 @@
 const fs = require('fs');
 const CONSTS = require('./consts');
+const jsonStore = require('json-store');
 
 module.exports = class App {
   static configExists () {
     return fs.existsSync(CONSTS.CONF_LOCATION);
   }
 
+  static initConfig () {
+    fs.copyFileSync(CONSTS.CONF_SOURCE, CONSTS.CONF_LOCATION);
+
+    fs.writeFileSync(CONSTS.DB_LOCATION, JSON.stringify({
+      subscribers: []
+    }));
+  }
+
   static getConfig () {
     return require('../../' + CONSTS.CONF_LOCATION);
+  }
+
+  static getStorage () {
+    let db = fs.readFileSync(CONSTS.DB_LOCATION);
+    return JSON.parse(db.toString());
   }
 
   static ensureLoggedIn (req, res, next) {
@@ -26,7 +40,7 @@ module.exports = class App {
     req.session.user = true;
   }
 
-  static addSubscriber () {
-    // todo
+  static haveEmailsAlreadySent () {
+    return false;
   }
 };
